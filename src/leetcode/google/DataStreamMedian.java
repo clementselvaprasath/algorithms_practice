@@ -1,0 +1,53 @@
+package leetcode.google;
+
+import java.util.PriorityQueue;
+
+public class DataStreamMedian {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/*
+	 * Numbers keep coming, return the median of numbers at every time a new
+	 * number added.
+	 * 
+	 * Clarification What's the definition of Median? - Median is the number
+	 * that in the middle of a sorted array. If there are n numbers in a sorted
+	 * array A, the median is A[(n - 1) / 2]. For example, if A=[1,2,3], median
+	 * is 2. If A=[1,19], median is 1.
+	 * 
+	 * Example For numbers coming list: [1, 2, 3, 4, 5], return [1, 1, 2, 2, 3].
+	 * 
+	 * For numbers coming list: [4, 5, 1, 3, 2, 6, 0], return [4, 4, 4, 3, 3, 3,
+	 * 3].
+	 * 
+	 * For numbers coming list: [2, 20, 100], return [2, 2, 20].
+	 * 
+	 * Challenge Total run time in O(nlogn).
+	 */
+	
+	public int[] medianII(int[] nums) {
+        if (nums == null || nums.length == 0) return new int[0];
+        int n = nums.length;
+        int[] res = new int[n];
+        PriorityQueue<Integer> minQ = new PriorityQueue<Integer>();
+        PriorityQueue<Integer> maxQ = new PriorityQueue<Integer>((a, b) -> Integer.compare(b, a));
+        
+        for (int i = 0; i < n; i++) {
+            maxQ.offer(nums[i]);
+            if (maxQ.size() > minQ.size()) {
+                minQ.offer(maxQ.poll());
+            }
+            
+            if (minQ.size() > maxQ.size()) {
+                maxQ.offer(minQ.poll());
+            }
+            
+            res[i] = maxQ.peek();
+        }
+        
+        return res;
+    }
+}

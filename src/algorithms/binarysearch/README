@@ -1,0 +1,27 @@
+1. If the input or the intermediate data is ordered.
+2. Search the value
+
+Template:
+
+public T BST(T[] a, T target) {
+	Arrays.sort(a);
+	int start = 0, end = a.length, mid = 0;
+	while (start + 1 < end) {
+		mid = start + (end - start) / 2;
+		if (a[mid] > target) {
+			end = mid;
+		} else if (a[mid] < target) {
+			start = mid;
+		} else {
+			// do something
+		}
+	}
+	
+	if (a[start] == target) {
+		// do something
+	} else if (a[end] == target) {
+		// do something
+	} else {
+		// do something
+	}
+}
